@@ -1,4 +1,4 @@
-#General description, do not include this section in your repo as well. Start with the next section.
+###General description, do not include this section in your repo as well. Start with the next section.
 
 
 Repo mock-up for "Introduction to Robotics" course.
