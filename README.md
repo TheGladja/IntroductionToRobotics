@@ -10,7 +10,7 @@
  Coding style is of utmost importance. You must have aperfectly clean code in order to receive the maximum grade. Keep in mind that magic numbers are not accepted, although you might see them in the lab(as a trade-off for speed). Remember to be consistent in your style, check the style guide and the provided style  document and use correct spacing.
  
  ### Details
- In this homework I made a three pontetiometer controlled rgb led. Each potentiometer is assigned to one of the colors (red, green and blue) and so the brightness, intensity and the color can be controlled by hand. The code structure is fairly simple, we read the value given by the potentiometers and apply the write value (voltage divided by the read value) to each color of the led.
+ In this homework I made a three potentiometer controlled rgb led. Each potentiometer is assigned to one of the colors (red, green and blue) and so the brightness, intensity and the color can be controlled by hand. The code structure is fairly simple, we read the value given by the potentiometers and apply the write value (voltage divided by the read value) to each color of the led.
  
  ### Image files
  Checkout this link: https://www.youtube.com/watch?v=-pjyUkCzI64&list=PLASPWLXL8uFXgAFEjd-jlXm1SQpGpdLho&index=1&ab_channel=CruceanuCalin
