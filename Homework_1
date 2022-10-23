@@ -1,7 +1,7 @@
 //voltage defined by the maximum led brightness divided by maximum analog value
 float voltage = 255./1023.;
 
-//optput pins for the leds
+//output pins for the leds
 int redPin = 9;
 int greenPin = 10;
 int bluePin = 11;
