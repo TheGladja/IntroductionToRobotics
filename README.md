@@ -13,4 +13,7 @@
  In this homework I made a three potentiometer controlled rgb led. Each potentiometer is assigned to one of the colors (red, green and blue) and so the brightness, intensity and the color can be controlled by hand. The code structure is fairly simple, we read the value given by the potentiometers and apply the write value (voltage divided by the read value) to each color of the led.
  
  ### Image files
- Checkout this link: https://www.youtube.com/watch?v=-pjyUkCzI64&list=PLASPWLXL8uFXgAFEjd-jlXm1SQpGpdLho&index=1&ab_channel=CruceanuCalin
+ #### Checkout this link
+ https://www.youtube.com/watch?v=-pjyUkCzI64&list=PLASPWLXL8uFXgAFEjd-jlXm1SQpGpdLho&index=1&ab_channel=CruceanuCalin
+ #### Setup photo
+ ![Homework1](https://user-images.githubusercontent.com/80258120/197415867-93f705b3-5815-4154-92a3-d8d9842ab5b1.jpeg)
