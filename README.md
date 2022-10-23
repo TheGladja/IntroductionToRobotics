@@ -5,7 +5,7 @@
 
  ### Requirements 
  #### Technical Task
- Use a separat potentiometer in controlling each of thecolor of the RGB led (Red,Green andBlue). The control must be done with digital electronics (aka you must read the value of the potentiometer with Arduino, and write a mapped value to each of the pins connected to the led.
+ Use a separate potentiometer in controlling each of thecolor of the RGB led (Red,Green andBlue). The control must be done with digital electronics (aka you must read the value of the potentiometer with Arduino, and write a mapped value to each of the pins connected to the led.
  #### Coding task
  Coding style is of utmost importance. You must have aperfectly clean code in order to receive the maximum grade. Keep in mind that magic numbers are not accepted, although you might see them in the lab(as a trade-off for speed). Remember to be consistent in your style, check the style guide and the provided style  document and use correct spacing.
  
