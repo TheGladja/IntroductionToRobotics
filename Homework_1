@@ -1,4 +1,4 @@
-//vlotage defined by the maximum led brightness divided by maximum analog value
+//voltage defined by the maximum led brightness divided by maximum analog value
 float voltage = 255./1023.;
 
 //optput pins for the leds
@@ -11,7 +11,7 @@ int potPin_red = A0;
 int potPin_green = A1;
 int potPin_blue = A2;
 
-//the value of the potentiometer which has to be applyed on the leds
+//the value of the potentiometer which has to be applied on the leds
 int readValue_red;
 int readValue_green;
 int readValue_blue;
