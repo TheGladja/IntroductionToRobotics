@@ -43,7 +43,7 @@
  #### Checkout this link
  https://www.youtube.com/watch?v=EJAYpygHkiI&list=PLASPWLXL8uFXgAFEjd-jlXm1SQpGpdLho&index=2&ab_channel=CruceanuCalin
  #### Setup photos
- ![WhatsApp Image 2022-11-03 at 18 00 12](https://user-images.githubusercontent.com/80258120/199771789-fd51476d-d4e7-4e46-b867-33a02c69e38d
+ ![WhatsApp Image 2022-11-03 at 18 00 12](https://user-images.githubusercontent.com/80258120/199775496-c7effc1e-7a56-46ad-8855-5a29222d1b93.jpeg)
  ![WhatsApp Image 2022-11-03 at 18 00 12 (1)](https://user-images.githubusercontent.com/80258120/199771798-64d78e0c-d45f-429f-9ff9-e62293be4892.jpeg)
 .jpeg)
  ![WhatsApp Image 2022-11-03 at 18 00 12 (2)](https://user-images.githubusercontent.com/80258120/199771882-c838ade3-b7be-4c21-aedd-60dfad0855c7.jpeg)
