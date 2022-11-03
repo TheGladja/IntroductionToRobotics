@@ -40,6 +40,15 @@ unsigned int beepCounterState4 = 0;
 unsigned long lastTimeButtonChanged = millis();
 unsigned long debounceDuration = 50;
 
+//constants for waiting time and buzzer
+const int eightSecondsWaitingTime = 8000;
+const int threeSecondsWaitingTime = 3000;
+const int oneSecondWaitingTime = 1000;
+const int halfSecondWaitingTime = 500;
+const int lowBuzzerFrequency = 2000;
+const int highBuzzerFrequency = 3000;
+const int buzzerDuration = 200;
+
 void entryPin(){
   pinMode(redLedCar, OUTPUT);
   pinMode(yellowLedCar, OUTPUT);
@@ -83,7 +92,7 @@ void State_1(){
 }
 
 void State_2(){
-  if(millis() - previousTime >= 8000){
+  if(millis() - previousTime >= eightSecondsWaitingTime){
     if(State2_Step1 == 1){
       digitalWrite(redLedCar, LOW);
       digitalWrite(yellowLedCar, HIGH);
@@ -98,7 +107,7 @@ void State_2(){
     }
   }
   
-  if(millis() - previousTime >= 3000){
+  if(millis() - previousTime >= threeSecondsWaitingTime){
     if(State2_Step2 == 1){
       State2_Step1 = 1; 
       State2_Step2 = 0; 
@@ -119,9 +128,9 @@ void State_3(){
   digitalWrite(greenLedPedestrian, HIGH);
 
   //the buzzer beeping
-  if(millis() - previousTime >= 1000){
+  if(millis() - previousTime >= oneSecondWaitingTime){
     if(beepCounterState3 < 8){
-      tone(buzzerPin, 2000, 200);
+      tone(buzzerPin, lowBuzzerFrequency, buzzerDuration);
       
       beepCounterState3++;      
 
@@ -145,16 +154,16 @@ void State_4(){
   digitalWrite(redLedPedestrian, LOW);
 
   //blinking green light and beeping buzzer
-  if(millis() - previousTime >= 500){
+  if(millis() - previousTime >= halfSecondWaitingTime){
     if(beepCounterState4 < 8){
       //led off and buzzer not beeping
       if(beepCounterState4 % 2 == 0){
-        tone(buzzerPin, 3000, 200);
+        tone(buzzerPin, highBuzzerFrequency, buzzerDuration);
         digitalWrite(greenLedPedestrian, LOW);
       }
       //led on and buzzer beeping
       else{
-        tone(buzzerPin, 3000, 200);
+        tone(buzzerPin, highBuzzerFrequency, buzzerDuration);
         digitalWrite(greenLedPedestrian, HIGH);        
       }
       
