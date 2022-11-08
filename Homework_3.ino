@@ -16,7 +16,6 @@ const int inaccessible = -1;
 
 const int segSize = 8;
 
-// modify if you have common anode
 byte dpState = LOW;
 int xValue = 0;
 int yValue = 0;
