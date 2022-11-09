@@ -48,5 +48,37 @@
  ![WhatsApp Image 2022-11-03 at 18 00 12 (1)](https://user-images.githubusercontent.com/80258120/199771798-64d78e0c-d45f-429f-9ff9-e62293be4892.jpeg)
 .jpeg)
  ![WhatsApp Image 2022-11-03 at 18 00 12 (2)](https://user-images.githubusercontent.com/80258120/199771882-c838ade3-b7be-4c21-aedd-60dfad0855c7.jpeg)
+ 
+ ## Homework 3
+
+ ### Requirements 
+ #### Technical Task
+ You will use the joystick to control the position of the segment and ”draw” on the display. The movement between segments should be natural (meaning they should jump from the current position only to neighbors, but without passing through ”walls”.
+ 
+ ##### State 1(default, but also initiated after a button press in State 2): 
+ Current position blinking. Can use the joystick to move from one position to neighbors. Short pressing the button toggles state 2. Long pressing the button in state 1 resets the entire display by turning all the segments OFF and moving the current position to the decimal point.
+ ##### State 2(initiated after a button press in State 1):
+ The current segment stops blinking, adopting the state of the segment before selection (ON or OFF). Toggling the X (or Y, you chose) axis should change the segment  state from ON to OFF or from OFF to ON. Clicking the joystick should save the segment state and exit back to state 1.
+ 
+ #### Be careful:
+ 1. Long pressing the button to reset should only be available in State1.
+ 2. Joystick movements should be done with toggle, as in the lab (joy-Moved, etc.).
+ 3. Correctly using interrupts with  debounce yields a bonus, but it is not a must. Code for homework with bonus points should be submitted before the course, not the lab.
+ 4. The code in the lab for joystick movement is not perfect and can be improved. The state change is missing something (sounds familiar?), the code should be wrapped in a function and the constraint between 0 and 9 can be simplified.
+ 
+ #### Coding task
+ Coding style is of utmost importance. You must have a perfectly clean code in order to receive the maximum grade. An important coding challenge present in this task is using millis() instead of delay(). However, remember that the bulk of the grade is if the project works. Do not tend to small details unless you have the entire functionality done.
+ 
+ ### Details
+ In this homework I made a seven LED display and a joystick work together. Joystick movement is done with toggle as in the lab, I used a matrix for the movement of the leds which helps you identify the accessible positions, as well as an array that remembers if the leds are turned off or on. For the difference between the short pressing button and the long pressing one I used a series of debouncing methods (several validators and verification lines) in order to recognize exactly the type of button press. Lastly, the millis() function takes the place of delay(), allowing other code instructions to execute while waiting. 
+ 
+ ### Image files
+ #### Checkout this link
+ https://www.youtube.com/watch?v=kPTVBHkOPv0&list=PLASPWLXL8uFXgAFEjd-jlXm1SQpGpdLho&index=3&ab_channel=CruceanuCalin
+ #### Setup photos
+ ![WhatsApp Image 2022-11-09 at 19 37 04](https://user-images.githubusercontent.com/80258120/200901431-53cdefbe-cea0-4bed-9a6a-3aa0e7a384a1.jpeg)
+ ![WhatsApp Image 2022-11-09 at 19 37 03](https://user-images.githubusercontent.com/80258120/200901448-f8c66288-0311-4406-8ccb-379645deeed9.jpeg)
+
+
 
  
