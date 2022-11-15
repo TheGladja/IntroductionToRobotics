@@ -102,10 +102,6 @@ void loop() {
   readButton();
 }
 
-void readValues() {
-  yValue = analogRead(pinY);
-}
-
 void stateTwo() {
   yValue = analogRead(pinY);
 
