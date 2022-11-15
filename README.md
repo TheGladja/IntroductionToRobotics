@@ -78,6 +78,47 @@
  #### Setup photos
  ![WhatsApp Image 2022-11-09 at 19 37 04](https://user-images.githubusercontent.com/80258120/200901431-53cdefbe-cea0-4bed-9a6a-3aa0e7a384a1.jpeg)
  ![WhatsApp Image 2022-11-09 at 19 37 03](https://user-images.githubusercontent.com/80258120/200901448-f8c66288-0311-4406-8ccb-379645deeed9.jpeg)
+ 
+ ## Homework 4
+
+ ### Requirements 
+ 
+ #### Components
+ A joystick, a 4 digit 7-segment display, a 74hc595 shift register.
+ 
+ #### Technical Task
+ Use the joystick to move through the 4 digit 7 segment displays digits, press the button to lock in on the current digit and use the other axis to increment or decrement the number. Keep the button pressed to reset all the digit values and the current position to the first digit in the first state.
+ 
+ #### The system has the following states
+ 
+ ##### First state: 
+ You can use a joystick axis to cycle through the 4 digits; using the other axis does nothing. A blinking decimal point shows the current digit position. When pressing the button, you lock in on the selected digit and enter the second state.
+ ##### Second state:
+ In this state, the decimal point stays always on, no longer blinking and you can no longer use the axis to cycle through the 4 digits. Instead, using the other axis,  you can increment or decrement the number on the current digit IN HEX (aka from 0 to F, as in the lab). Pressing the button again returns you to the previous state.  Also, keep in mind that when changing the number, you must increment it for each joystick movement - it should not work continuosly increment if you keep the joystick in one position(aka with joyMoved).
+ ##### Reset:
+ Toggled by long pressing the button only in the first state. When resetting, all the digits go back to 0 and the current position is set to the first (rightmost) digit, in the first state.
+ 
+ #### Be careful:
+ 1. You must use shift register.
+ 2. You must cycle all the way up to ”F” in HEX.
+ 3. You need to add the ”reset” functionality by keeping the button pressed.
+ 
+ ##### Have fun!
+ 
+ #### Coding task
+ Coding style is of utmost importance. You must have a perfectly clean code in order to receive the maximum grade. An important coding challenge present in this task is using millis() instead of delay(). However, remember that the bulk of the grade is if the project works. Do not tend to small details unless you have the entire functionality done.
+ 
+ ### Details
+ In this homework I made a joystick controlled 4 by 7 segment display. Joystick movement is done with toggle as in the lab, I used a shift register to minimize the entry pins on the arduino board, in this case only the segment pins will go directly to the arduino. This homework is similar to the previous homework, the joystick movement on Ox axis moves the current segment from left to right and the movement on Oy axis changes the value of the current segment. The long and short pressing of the button is the same as in homework 3. Lastly, I used an array for holding each one of the 4 segments value so every time the program will run through the loop it will map the correct values.
+ 
+ ### Image files
+ #### Checkout this link
+ https://www.youtube.com/watch?v=_0SVNLVXcN0&list=PLASPWLXL8uFXgAFEjd-jlXm1SQpGpdLho&index=4
+ #### Setup photos
+ ![WhatsApp Image 2022-11-15 at 12 42 18](https://user-images.githubusercontent.com/80258120/201899817-d140d1ac-568f-488f-a722-de24cdef4d7f.jpeg)
+ ![WhatsApp Image 2022-11-15 at 12 42 19](https://user-images.githubusercontent.com/80258120/201899841-d30987ff-1faa-4f5b-9eab-aa3083304b54.jpeg)
+ ![WhatsApp Image 2022-11-15 at 12 42 19 (1)](https://user-images.githubusercontent.com/80258120/201899862-67e4d671-b57f-4ad3-89b1-edc555505b12.jpeg)
+
 
 
 
