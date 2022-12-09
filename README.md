@@ -211,7 +211,7 @@
  A short scrolling message description about how to play the game.
  Press the joystick button to return to the menu.
  
- #####6. Reset score
+ ##### 6. Reset score
  Use the joystick up/down to select RESET (reset the highscore the returns you to the menu) or CANCEL (return to menu).
  
  ### Image files
