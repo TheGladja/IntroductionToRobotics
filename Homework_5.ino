@@ -1,5 +1,6 @@
 #include <LiquidCrystal.h>
 #include <LedControl.h>
+#include <EEPROM.h>
 
 //for the intro song
 #define NOTE_B0 31
@@ -237,14 +238,16 @@ bool startGameDisplay = false;
 bool enterUserNameDisplay = true;
 bool enterLevelDisplay = false;
 int lcdShine = 5;
-int lcdShineStep = 50;
+const int lcdShineStep = 50;
 int matrixShine = 5;
-int matrixShineStep = 3;
-String soundSetting = "on";
+const int matrixShineStep = 3;
 bool sound = true;
 bool resetScore = false;
 
-String test = "";
+const int eepromLcdShine = 1;
+const int eepromMatrixShine = 2;
+const int eepromSound = 3;
+
 
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -256,7 +259,12 @@ void setup() {
   lcd.begin(16, 2);
   pinMode(intensity, OUTPUT);
   pinMode(pinSW, INPUT_PULLUP);
-  introSong();
+
+  sound = EEPROM.read(eepromSound);
+  if (sound) {
+    introSong();
+  }
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -277,8 +285,17 @@ void loop() {
   } else if (startGameDisplay) {
     startGameMenu();
   }
+  writeIntensityAndUpdateEEPROM();
+}
+
+void writeIntensityAndUpdateEEPROM() {
+  lcdShine = EEPROM.read(eepromLcdShine);
+  matrixShine = EEPROM.read(eepromMatrixShine);
+  sound = EEPROM.read(eepromSound);
+
   analogWrite(intensity, (lcdShine * lcdShineStep));
   lc.setIntensity(0, (matrixShine * matrixShineStep));
+  Serial.println(lcdShine);
 }
 
 void displayIntro() {
@@ -591,7 +608,11 @@ void settingsMenu() {
     lcd.print("/5");
   } else if (currentSettingsDisplay == 2) {
     lcd.setCursor(12, 1);
-    lcd.print(soundSetting);
+    if (sound) {
+      lcd.print("on");
+    } else {
+      lcd.print("off");
+    }
   }
 
   //display the image we want to see
@@ -641,16 +662,16 @@ void modifyBrightnessAndSound() {
     if (currentSettingsDisplay == 0) {
       if (lcdShine < 5) {
         lcdShine++;
+        EEPROM.write(eepromLcdShine, lcdShine);
       }
     } else if (currentSettingsDisplay == 1) {
       if (matrixShine < 5) {
         matrixShine++;
+        EEPROM.write(eepromMatrixShine, matrixShine);
       }
     } else if (currentSettingsDisplay == 2) {
-      soundSetting = "on";
-      sound = true;
+      EEPROM.write(eepromSound, 1);
     }
-
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
@@ -663,14 +684,15 @@ void modifyBrightnessAndSound() {
     if (currentSettingsDisplay == 0) {
       if (lcdShine > 0) {
         lcdShine--;
+        EEPROM.write(eepromLcdShine, lcdShine);
       }
     } else if (currentSettingsDisplay == 1) {
       if (matrixShine > 0) {
         matrixShine--;
+        EEPROM.write(eepromMatrixShine, matrixShine);
       }
     } else if (currentSettingsDisplay == 2) {
-      soundSetting = "off";
-      sound = false;
+      EEPROM.write(eepromSound, 0);
     }
 
     if (sound) {
@@ -897,7 +919,7 @@ void readMenuButton() {
             enterNameLetters[i] = 0;
           }
           newPlayer = emptyString;
-          newScore = 0;
+          newScore = 10;
 
           enterUserNameDisplay = false;
           enterLevelDisplay = true;
