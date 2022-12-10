@@ -942,7 +942,7 @@ void readMenuButton() {
               scoreToMap = previousScore;
             }
             EEPROM.write((eepromScoreStart + 1), newScore);
-            
+
             //move the other players down
             for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
               letterToMap = EEPROM.read(i - eepromNameStep);
@@ -996,7 +996,7 @@ void readMenuButton() {
               letterToMap = EEPROM.read(i - eepromNameStep);
               EEPROM.write(i, letterToMap);
             }
-            
+
             // write the new player name to eeprom
             for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
               EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
