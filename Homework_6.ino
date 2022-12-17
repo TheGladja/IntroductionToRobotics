@@ -137,6 +137,20 @@ int notes = sizeof(melody) / sizeof(melody[0]) / 2;
 int wholenote = (60000 * 4) / tempo;
 int divider = 0, noteDuration = 0;
 
+const int rowGameOver = 8;
+const int colGameOver = 90;
+
+const PROGMEM bool gameOverMessage[rowGameOver][colGameOver] = {
+  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
 const byte buzzerPin = A2;
 
 const byte dinPin = 12;
@@ -189,11 +203,9 @@ String menuDisplay[menuDisplayNumber] = { "1. Start Game", "2. Highscore", "3. S
 String settingsMenuDisplay[settingsDisplayNumber] = { "Led Shine:", "Matrix Shine:", "Sound:" };
 String levelDisplay[levelDisplayNumber] = { " EASY ", "MEDIUM", " HARD " };
 String rankDisplay[rankDisplayNumber] = { "1st.", "2nd.", "3rd.", "4th.", "5th." };
-String playerNameDisplay[rankDisplayNumber] = { "OLIVER", "DANIEL", "SAMUEL", "CARTER", "JULIAN" };
-String clearLcd = "                ";
 bool cursorPosition = false;
 String newPlayer = "";
-int newScore = 1;
+int newScore = 0;
 String emptyString = "";
 
 char* introText = "Hello and Welcome to the amazing Cozy Snake Game!!! Press the button to enter menu...                ";
@@ -242,6 +254,7 @@ int matrixShine = 5;
 const int matrixShineStep = 3;
 bool sound = true;
 bool resetScore = false;
+bool gameDisplay = false;
 
 int playerScore;
 String playerName;
@@ -258,6 +271,32 @@ int previousScore;
 int scoreToMap;
 int letterToMap;
 
+//for the game
+int randomCol;
+int randomRow;
+unsigned long prevTimeGame = 0;
+bool food = true;
+int dotRowPosition = 0;
+int dotColPosition = 0;
+const int blinkTime = 300;
+bool ledPower = true;
+int deleteDotPosition = 0;
+const int matrixDotNumber = 45;
+int rowSnakePosition[matrixDotNumber] = { 0 };
+int colSnakePosition[matrixDotNumber] = { 0 };
+bool up = false;
+bool down = false;
+bool right = false;
+bool left = false;
+bool endGame = false;
+const int easySpeed = 300;
+const int hardSpeed = 200;
+unsigned long previousSnakeTime = 0;
+bool easyLevel = false;
+bool mediumLevel = false;
+bool hardLevel = false;
+const int matrixMessageSpeed = 5;
+
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 void setup() {
@@ -273,6 +312,8 @@ void setup() {
   if (sound) {
     introSong();
   }
+
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -296,21 +337,217 @@ void loop() {
   writeIntensityAndUpdateEEPROM();
 }
 
-void writeIntensityAndUpdateEEPROM() {
-  playerName = emptyString;
-  //getting the player name from eeprom
-  for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
-    playerName.concat(char(EEPROM.read(i)));
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------ Snake Game -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void snakeGame() {
+  //for displaying the score and time
+  lcd.setCursor(0, 0);
+  lcd.print("Score:");
+  lcd.setCursor(7, 0);
+  lcd.print(newScore);
+  lcd.setCursor(0, 1);
+  lcd.print("Time:");
+  lcd.setCursor(6, 1);
+  lcd.print((millis() - prevTimeGame) / 1000);
+
+  generateFood();
+  moveDot();
+  if (easyLevel || mediumLevel) {
+    snakeSpeed(easySpeed);
+  } else if (hardLevel) {
+    snakeSpeed(hardSpeed);
+  }
+  getPoints();
+  returnToMenu();
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------ Snake movement -------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void snakeSpeed(int speed) {
+  if (millis() - previousSnakeTime >= speed) {
+    if (up) {
+      deleteLastDot();
+      if (dotRowPosition > 0) {
+        dotRowPosition--;
+      } else {
+        dotRowPosition = matrixSize - 1;
+      }
+      rowSnakePosition[0] = dotRowPosition;
+    } else if (down) {
+      deleteLastDot();
+      if (dotRowPosition < matrixSize - 1) {
+        dotRowPosition++;
+      } else {
+        dotRowPosition = 0;
+      }
+      rowSnakePosition[0] = dotRowPosition;
+    } else if (right) {
+      deleteLastDot();
+      if (dotColPosition < matrixSize - 1) {
+        dotColPosition++;
+      } else {
+        dotColPosition = 0;
+      }
+      colSnakePosition[0] = dotColPosition;
+    } else if (left) {
+      deleteLastDot();
+      if (dotColPosition > 0) {
+        dotColPosition--;
+      } else {
+        dotColPosition = matrixSize - 1;
+      }
+      colSnakePosition[0] = dotColPosition;
+    }
+    previousSnakeTime = millis();
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------ Food generator -------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void generateFood() {
+  if (food) {
+    if (easyLevel) {
+      randomRow = random(0, 8);
+      randomCol = random(0, 8);
+    } else if (mediumLevel || hardLevel) {
+      randomRow = random(1, 7);
+      randomCol = random(1, 7);
+    }
+    food = false;
+  }
+  for (int i = 0; i <= deleteDotPosition; i++) {
+    if (randomRow == rowSnakePosition[i] && randomCol == colSnakePosition[i]) {
+      food = true;
+    } else {
+      if (millis() - previousTime >= blinkTime) {
+        lc.setLed(0, randomRow, randomCol, ledPower);
+        if (ledPower) {
+          ledPower = false;
+        } else {
+          ledPower = true;
+        }
+        previousTime = millis();
+      }
+    }
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------ Update new score -----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void getPoints() {
+  if (dotRowPosition == randomRow && dotColPosition == randomCol) {
+    if (sound) {
+      tone(buzzerPin, 6000, 20);
+    }
+    newScore++;
+    food = true;
+    deleteDotPosition++;
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------ Change snake direction -----------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void moveDot() {
+  xValue = analogRead(pinX);
+  yValue = analogRead(pinY);
+
+  if (mediumLevel || hardLevel) {
+    for (int i = 0; i < matrixSize; i++) {
+      lc.setLed(0, 0, i, true);
+      lc.setLed(0, i, 0, true);
+      lc.setLed(0, matrixSize - 1, i, true);
+      lc.setLed(0, i, matrixSize - 1, true);
+    }
   }
 
-  playerScore = EEPROM.read(eepromScoreStart + currentRankDisplay);
-  lcdShine = EEPROM.read(eepromLcdShine);
-  matrixShine = EEPROM.read(eepromMatrixShine);
-  sound = EEPROM.read(eepromSound);
+  //move up
+  if (yValue < minThreshold && joyMoved == false) {
+    if (!down) {
+      right = false;
+      left = false;
+      up = true;
+    }
 
-  analogWrite(intensity, (lcdShine * lcdShineStep));
-  lc.setIntensity(0, (matrixShine * matrixShineStep));
+    if (sound) {
+      tone(buzzerPin, 3000, 5);
+    }
+    joyMoved = true;
+  }
+
+  //move down
+  if (yValue > maxThreshold && joyMoved == false) {
+    if (!up) {
+      right = false;
+      left = false;
+      down = true;
+    }
+
+    if (sound) {
+      tone(buzzerPin, 3000, 5);
+    }
+    joyMoved = true;
+  }
+
+  //move right
+  if (xValue < minThreshold && joyMoved == false) {
+    if (!left) {
+      up = false;
+      down = false;
+      right = true;
+    }
+
+    if (sound) {
+      tone(buzzerPin, 3000, 5);
+    }
+    joyMoved = true;
+  }
+
+  //move left
+  if (xValue > maxThreshold && joyMoved == false) {
+    if (!right) {
+      up = false;
+      down = false;
+      left = true;
+    }
+
+    if (sound) {
+      tone(buzzerPin, 3000, 5);
+    }
+    joyMoved = true;
+  }
+
+  if (yValue >= minThreshold && yValue <= maxThreshold && xValue >= minThreshold && xValue <= maxThreshold) {
+    joyMoved = false;
+  }
+
+  lc.setLed(0, dotRowPosition, dotColPosition, true);
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------ Delete snake's tail --------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void deleteLastDot() {
+  lc.setLed(0, rowSnakePosition[deleteDotPosition], colSnakePosition[deleteDotPosition], false);
+  for (int i = deleteDotPosition; i > 0; i--) {
+    rowSnakePosition[i] = rowSnakePosition[i - 1];
+    colSnakePosition[i] = colSnakePosition[i - 1];
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------- Introduction -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void displayIntro() {
   displayIntroFigure();
@@ -324,37 +561,9 @@ void displayIntroFigure() {
   printByte(snake);
 }
 
-void printByte(byte character[]) {
-  int i = 0;
-  for (i = 0; i < matrixSize; i++) {
-    lc.setRow(0, i, character[i]);
-  }
-}
-
-void scrollingMessage(char* Text, int TextLineNumber) {
-  if (millis() - previousTime >= scrollTextTime) {
-    int lengthOfText = strlen(Text);
-
-    if (scrollingTextCursor == lengthOfText - 1) {
-      scrollingTextCursor = 0;
-    }
-    lcd.setCursor(0, TextLineNumber);
-    if (scrollingTextCursor < lengthOfText - 16) {
-      for (int i = scrollingTextCursor; i < scrollingTextCursor + 16; i++) {
-        lcd.print(Text[i]);
-      }
-    } else {
-      for (int i = scrollingTextCursor; i < lengthOfText; i++) {
-        lcd.print(Text[i]);
-      }
-      for (int i = 0; i <= 16 - (lengthOfText - scrollingTextCursor); i++) {
-        lcd.print(Text[i]);
-      }
-    }
-    scrollingTextCursor++;
-    previousTime = millis();
-  }
-}
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------ Menu -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void displayMenu() {
   displayAnimation();
@@ -401,7 +610,7 @@ void displayMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     lc.clearDisplay(0);
     joyMoved = true;
   }
@@ -422,7 +631,7 @@ void displayMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     lc.clearDisplay(0);
     joyMoved = true;
   }
@@ -433,11 +642,17 @@ void displayMenu() {
   readMenuButton();
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------- Start Game menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void startGameMenu() {
   if (enterUserNameDisplay) {
     enterUserName();
   } else if (enterLevelDisplay) {
     enterLevel();
+  } else if (gameDisplay) {
+    snakeGame();
   }
   readMenuButton();
 }
@@ -449,14 +664,23 @@ void enterLevel() {
   if (currentLevelDisplay == 0) {
     lcd.setCursor(15, 0);
     lcd.print(">");
+    hardLevel = false;
+    mediumLevel = false;
+    easyLevel = true;
   } else if (currentLevelDisplay == levelDisplayNumber - 1) {
     lcd.setCursor(0, 0);
     lcd.print("<");
+    mediumLevel = false;
+    easyLevel = false;
+    hardLevel = true;
   } else {
     lcd.setCursor(0, 0);
     lcd.print("<");
     lcd.setCursor(15, 0);
     lcd.print(">");
+    easyLevel = false;
+    hardLevel = false;
+    mediumLevel = true;
   }
 
   //display the image
@@ -473,7 +697,7 @@ void enterLevel() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -485,7 +709,7 @@ void enterLevel() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -521,7 +745,7 @@ void modifyLetter() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     modifyLetterJoyMoved = true;
   }
 
@@ -533,7 +757,7 @@ void modifyLetter() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     modifyLetterJoyMoved = true;
   }
 
@@ -569,7 +793,7 @@ void moveNameArrow() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -582,7 +806,7 @@ void moveNameArrow() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -591,6 +815,10 @@ void moveNameArrow() {
     joyMoved = false;
   }
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------- Settings menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void settingsMenu() {
   xValue = analogRead(pinX);
@@ -643,7 +871,7 @@ void settingsMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -655,7 +883,7 @@ void settingsMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -689,7 +917,7 @@ void modifyBrightnessAndSound() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     brightnessJoyMoved = true;
   }
 
@@ -712,7 +940,7 @@ void modifyBrightnessAndSound() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     brightnessJoyMoved = true;
   }
 
@@ -721,6 +949,10 @@ void modifyBrightnessAndSound() {
   }
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------- How To Play menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void howToPlayMenu() {
   lcd.setCursor(2, 0);
   lcd.print("How to play");
@@ -728,12 +960,20 @@ void howToPlayMenu() {
   readMenuButton();
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- About menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void aboutMenu() {
   lcd.setCursor(5, 0);
   lcd.print("About");
   scrollingMessage(aboutText, aboutTextLineNumber);
   readMenuButton();
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------- Reset Score menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void resetScoreMenu() {
   yValue = analogRead(pinY);
@@ -757,7 +997,7 @@ void resetScoreMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     resetScore = true;
     joyMoved = true;
   }
@@ -767,7 +1007,7 @@ void resetScoreMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     resetScore = false;
     joyMoved = true;
   }
@@ -778,6 +1018,10 @@ void resetScoreMenu() {
 
   readMenuButton();
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------- Highscore menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void highscoreMenu() {
   xValue = analogRead(pinX);
@@ -816,7 +1060,7 @@ void highscoreMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -828,7 +1072,7 @@ void highscoreMenu() {
     if (sound) {
       tone(buzzerPin, 3000, 5);
     }
-    clearScreen();
+    lcd.clear();
     joyMoved = true;
   }
 
@@ -840,6 +1084,75 @@ void highscoreMenu() {
   modifyBrightnessAndSound();
   readMenuButton();
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------- Other features for common use -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------- Displays the matrix picture -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void printByte(byte character[]) {
+  int i = 0;
+  for (i = 0; i < matrixSize; i++) {
+    lc.setRow(0, i, character[i]);
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------- Writes intensity for matrix and lcd and updates the eeprom variables -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void writeIntensityAndUpdateEEPROM() {
+  playerName = emptyString;
+  //getting the player name from eeprom
+  for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
+    playerName.concat(char(EEPROM.read(i)));
+  }
+
+  playerScore = EEPROM.read(eepromScoreStart + currentRankDisplay);
+  lcdShine = EEPROM.read(eepromLcdShine);
+  matrixShine = EEPROM.read(eepromMatrixShine);
+  sound = EEPROM.read(eepromSound);
+
+  analogWrite(intensity, (lcdShine * lcdShineStep));
+  lc.setIntensity(0, (matrixShine * matrixShineStep));
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------- For the scrolling message -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void scrollingMessage(char* Text, int TextLineNumber) {
+  if (millis() - previousTime >= scrollTextTime) {
+    int lengthOfText = strlen(Text);
+
+    if (scrollingTextCursor == lengthOfText - 1) {
+      scrollingTextCursor = 0;
+    }
+    lcd.setCursor(0, TextLineNumber);
+    if (scrollingTextCursor < lengthOfText - 16) {
+      for (int i = scrollingTextCursor; i < scrollingTextCursor + 16; i++) {
+        lcd.print(Text[i]);
+      }
+    } else {
+      for (int i = scrollingTextCursor; i < lengthOfText; i++) {
+        lcd.print(Text[i]);
+      }
+      for (int i = 0; i <= 16 - (lengthOfText - scrollingTextCursor); i++) {
+        lcd.print(Text[i]);
+      }
+    }
+    scrollingTextCursor++;
+    previousTime = millis();
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------ Displays the matrix picture for each menu part -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void displayAnimation() {
   if (menuCursor == 1) {
@@ -857,12 +1170,9 @@ void displayAnimation() {
   }
 }
 
-void clearScreen() {
-  lcd.setCursor(0, 0);
-  lcd.print(clearLcd);
-  lcd.setCursor(0, 1);
-  lcd.print(clearLcd);
-}
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------- Reads the introduction button press -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void readIntroductionButton() {
   currentMillis = millis();
@@ -877,11 +1187,15 @@ void readIntroductionButton() {
       introduction = false;
       menu = true;
       lc.clearDisplay(0);
-      clearScreen();
+      lcd.clear();
     }
     previousButtonMillis = currentMillis;
   }
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------- For each button press while in menu -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void readMenuButton() {
   currentMillis = millis();
@@ -905,125 +1219,9 @@ void readMenuButton() {
 
       if (menuCursor == 1) {
         if (enterUserNameDisplay) {
-          //update highscore if necessary
-          if (newScore > EEPROM.read(eepromScoreStart)) {
-            currentRankDisplay = 0;
-            letterContor = 0;
-
-            //move the score down
-            scoreToMap = EEPROM.read(eepromScoreStart);
-            for (int i = eepromScoreStart + 1; i <= eepromScoreEnd; i++) {
-              previousScore = EEPROM.read(i);
-              EEPROM.write(i, scoreToMap);
-              scoreToMap = previousScore;
-            }
-            EEPROM.write(eepromScoreStart, newScore);
-
-            //move the other players down
-            for (int i = eepromNameEnd; i >= eepromNameStep + eepromNameStart; i--) {
-              letterToMap = EEPROM.read(i - eepromNameStep);
-              EEPROM.write(i, letterToMap);
-            }
-
-            //write the new player name to eeprom
-            for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
-              EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
-              letterContor++;
-            }
-          } else if (newScore > EEPROM.read(eepromScoreStart + 1)) {
-            currentRankDisplay = 1;
-            letterContor = 0;
-
-            //move the score down
-            scoreToMap = EEPROM.read(eepromScoreStart + 1);
-            for (int i = eepromScoreStart + 2; i <= eepromScoreEnd; i++) {
-              previousScore = EEPROM.read(i);
-              EEPROM.write(i, scoreToMap);
-              scoreToMap = previousScore;
-            }
-            EEPROM.write((eepromScoreStart + 1), newScore);
-
-            //move the other players down
-            for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
-              letterToMap = EEPROM.read(i - eepromNameStep);
-              EEPROM.write(i, letterToMap);
-            }
-
-            // write the new player name to eeprom
-            for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
-              EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
-              letterContor++;
-            }
-          } else if (newScore > EEPROM.read(eepromScoreStart + 2)) {
-            currentRankDisplay = 2;
-            letterContor = 0;
-
-            //move the score down
-            scoreToMap = EEPROM.read(eepromScoreStart + 2);
-            for (int i = eepromScoreStart + 3; i <= eepromScoreEnd; i++) {
-              previousScore = EEPROM.read(i);
-              EEPROM.write(i, scoreToMap);
-              scoreToMap = previousScore;
-            }
-            EEPROM.write((eepromScoreStart + 2), newScore);
-
-            //move the other players down
-            for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
-              letterToMap = EEPROM.read(i - eepromNameStep);
-              EEPROM.write(i, letterToMap);
-            }
-
-            // write the new player name to eeprom
-            for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
-              EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
-              letterContor++;
-            }
-          } else if (newScore > EEPROM.read(eepromScoreStart + 3)) {
-            currentRankDisplay = 3;
-            letterContor = 0;
-
-            //move the score down
-            scoreToMap = EEPROM.read(eepromScoreStart + 3);
-            for (int i = eepromScoreStart + 4; i <= eepromScoreEnd; i++) {
-              previousScore = EEPROM.read(i);
-              EEPROM.write(i, scoreToMap);
-              scoreToMap = previousScore;
-            }
-            EEPROM.write((eepromScoreStart + 3), newScore);
-
-            //move the other players down
-            for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
-              letterToMap = EEPROM.read(i - eepromNameStep);
-              EEPROM.write(i, letterToMap);
-            }
-
-            // write the new player name to eeprom
-            for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
-              EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
-              letterContor++;
-            }
-          } else if (newScore > EEPROM.read(eepromScoreStart + 4)) {
-            currentRankDisplay = 4;
-            letterContor = 0;
-
-            EEPROM.write((eepromScoreStart + 4), newScore);
-
-            // write the new player name to eeprom
-            for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
-              EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
-              letterContor++;
-            }
-          }
-
-          //reset newPlayer and input name
-          for (int i = 0; i < playerNameLetterNumber; i++) {
-            enterNameLetters[i] = 0;
-          }
-          newPlayer = emptyString;
-
           enterUserNameDisplay = false;
           enterLevelDisplay = true;
-          clearScreen();
+          lcd.clear();
         }
       }
 
@@ -1043,35 +1241,51 @@ void readMenuButton() {
           if (startGameDisplay == false) {
             menu = false;
             startGameDisplay = true;
-            clearScreen();
-          } else if (enterUserNameDisplay == false && startGameDisplay) {
-            menu = true;
-            startGameDisplay = false;
-            enterUserNameDisplay = true;
+            lcd.clear();
+          } else if (enterLevelDisplay) {
+            if (easyLevel) {
+              dotRowPosition = 0;
+              dotColPosition = 0;
+            } else if (mediumLevel || hardLevel) {
+              dotRowPosition = 1;
+              dotColPosition = 1;
+              rowSnakePosition[0] = 1;
+              colSnakePosition[0] = 1;
+            }
+
+            up = false;
+            down = false;
+            right = false;
+            left = false;
+            endGame = false;
+
             enterLevelDisplay = false;
-            clearScreen();
+            gameDisplay = true;
+            prevTimeGame = millis();
+            lc.clearDisplay(0);
+            lcd.clear();
           }
         }
         if (menuCursor == 2) {
           if (highscoreDisplay == false) {
             menu = false;
             highscoreDisplay = true;
-            clearScreen();
+            lcd.clear();
           } else {
             menu = true;
             highscoreDisplay = false;
-            clearScreen();
+            lcd.clear();
           }
         }
         if (menuCursor == 3) {
           if (settingsDisplay == false) {
             menu = false;
             settingsDisplay = true;
-            clearScreen();
+            lcd.clear();
           } else {
             menu = true;
             settingsDisplay = false;
-            clearScreen();
+            lcd.clear();
           }
         }
         if (menuCursor == 4) {
@@ -1079,11 +1293,11 @@ void readMenuButton() {
             menu = false;
             aboutDisplay = true;
             scrollingTextCursor = defaultTextCursor;
-            clearScreen();
+            lcd.clear();
           } else {
             menu = true;
             aboutDisplay = false;
-            clearScreen();
+            lcd.clear();
           }
         }
         if (menuCursor == 5) {
@@ -1091,18 +1305,18 @@ void readMenuButton() {
             menu = false;
             howToPlayDisplay = true;
             scrollingTextCursor = defaultTextCursor;
-            clearScreen();
+            lcd.clear();
           } else {
             menu = true;
             howToPlayDisplay = false;
-            clearScreen();
+            lcd.clear();
           }
         }
         if (menuCursor == 6) {
           if (resetScoreDisplay == false) {
             menu = false;
             resetScoreDisplay = true;
-            clearScreen();
+            lcd.clear();
           } else {
             if (resetScore) {
               for (int i = eepromScoreStart; i <= eepromScoreEnd; i++) {
@@ -1111,13 +1325,201 @@ void readMenuButton() {
             }
             menu = true;
             resetScoreDisplay = false;
-            clearScreen();
+            lcd.clear();
           }
         }
       }
     }
   }
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------- When the game ends you will be back to menu  --------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void returnToMenu() {
+
+  for (int i = 1; i <= deleteDotPosition; i++) {
+    if (rowSnakePosition[0] == rowSnakePosition[i] && colSnakePosition[0] == colSnakePosition[i]) {
+      endGame = true;
+    }
+  }
+
+  if (mediumLevel || hardLevel) {
+    if (rowSnakePosition[0] == 0 || rowSnakePosition[0] == (matrixSize - 1) || colSnakePosition[0] == 0 || colSnakePosition[0] == (matrixSize - 1)) {
+      endGame = true;
+    }
+  }
+
+  if (endGame) {
+    //display final lcd message
+    if (newScore > EEPROM.read(eepromScoreStart)) {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Congratulations!");
+      lcd.setCursor(0, 1);
+      lcd.print("New Highscore!!!");
+    } else {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Better luck");
+      lcd.setCursor(0, 1);
+      lcd.print("Next time :(");
+    }
+
+    displayScrollingMatrixMessage();
+
+    //update highscore if necessary
+    if (newScore > EEPROM.read(eepromScoreStart)) {
+      currentRankDisplay = 0;
+      letterContor = 0;
+
+      //move the score down
+      scoreToMap = EEPROM.read(eepromScoreStart);
+      for (int i = eepromScoreStart + 1; i <= eepromScoreEnd; i++) {
+        previousScore = EEPROM.read(i);
+        EEPROM.write(i, scoreToMap);
+        scoreToMap = previousScore;
+      }
+      EEPROM.write(eepromScoreStart, newScore);
+
+      //move the other players down
+      for (int i = eepromNameEnd; i >= eepromNameStep + eepromNameStart; i--) {
+        letterToMap = EEPROM.read(i - eepromNameStep);
+        EEPROM.write(i, letterToMap);
+      }
+
+      //write the new player name to eeprom
+      for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
+        EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
+        letterContor++;
+      }
+    } else if (newScore > EEPROM.read(eepromScoreStart + 1)) {
+      currentRankDisplay = 1;
+      letterContor = 0;
+
+      //move the score down
+      scoreToMap = EEPROM.read(eepromScoreStart + 1);
+      for (int i = eepromScoreStart + 2; i <= eepromScoreEnd; i++) {
+        previousScore = EEPROM.read(i);
+        EEPROM.write(i, scoreToMap);
+        scoreToMap = previousScore;
+      }
+      EEPROM.write((eepromScoreStart + 1), newScore);
+
+      //move the other players down
+      for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
+        letterToMap = EEPROM.read(i - eepromNameStep);
+        EEPROM.write(i, letterToMap);
+      }
+
+      // write the new player name to eeprom
+      for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
+        EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
+        letterContor++;
+      }
+    } else if (newScore > EEPROM.read(eepromScoreStart + 2)) {
+      currentRankDisplay = 2;
+      letterContor = 0;
+
+      //move the score down
+      scoreToMap = EEPROM.read(eepromScoreStart + 2);
+      for (int i = eepromScoreStart + 3; i <= eepromScoreEnd; i++) {
+        previousScore = EEPROM.read(i);
+        EEPROM.write(i, scoreToMap);
+        scoreToMap = previousScore;
+      }
+      EEPROM.write((eepromScoreStart + 2), newScore);
+
+      //move the other players down
+      for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
+        letterToMap = EEPROM.read(i - eepromNameStep);
+        EEPROM.write(i, letterToMap);
+      }
+
+      // write the new player name to eeprom
+      for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
+        EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
+        letterContor++;
+      }
+    } else if (newScore > EEPROM.read(eepromScoreStart + 3)) {
+      currentRankDisplay = 3;
+      letterContor = 0;
+
+      //move the score down
+      scoreToMap = EEPROM.read(eepromScoreStart + 3);
+      for (int i = eepromScoreStart + 4; i <= eepromScoreEnd; i++) {
+        previousScore = EEPROM.read(i);
+        EEPROM.write(i, scoreToMap);
+        scoreToMap = previousScore;
+      }
+      EEPROM.write((eepromScoreStart + 3), newScore);
+
+      //move the other players down
+      for (int i = eepromNameEnd; i >= (eepromNameStep * (currentRankDisplay + 1)) + eepromNameStart; i--) {
+        letterToMap = EEPROM.read(i - eepromNameStep);
+        EEPROM.write(i, letterToMap);
+      }
+
+      // write the new player name to eeprom
+      for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
+        EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
+        letterContor++;
+      }
+    } else if (newScore > EEPROM.read(eepromScoreStart + 4)) {
+      currentRankDisplay = 4;
+      letterContor = 0;
+
+      EEPROM.write((eepromScoreStart + 4), newScore);
+
+      // write the new player name to eeprom
+      for (int i = eepromNameStart + (eepromNameStep * currentRankDisplay); i < eepromNameStep + (eepromNameStart + (eepromNameStep * currentRankDisplay)); i++) {
+        EEPROM.write(i, alphabet[enterNameLetters[letterContor]]);
+        letterContor++;
+      }
+    }
+
+    //reset position arrays for snake
+    for (int i = 0; i <= deleteDotPosition; i++) {
+      rowSnakePosition[i] = 0;
+      colSnakePosition[i] = 0;
+    }
+
+    //reset newPlayer and input name and score
+    for (int i = 0; i < playerNameLetterNumber; i++) {
+      enterNameLetters[i] = 0;
+    }
+    newPlayer = emptyString;
+    newScore = 0;
+    deleteDotPosition = 0;
+
+    menu = true;
+    startGameDisplay = false;
+    enterUserNameDisplay = true;
+    gameDisplay = false;
+    food = true;
+    lcd.clear();
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------- Displays the scrolling message on matrix ------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void displayScrollingMatrixMessage() {
+  for (int i = 0; i < sizeof(gameOverMessage[0]) - (matrixSize - 1); i++) {
+    for (int col = 0; col < matrixSize; col++) {
+      delay(matrixMessageSpeed);
+      for (int row = 0; row < matrixSize; row++) {
+        lc.setLed(0, row, col, pgm_read_byte(&(gameOverMessage[row][col +i])));
+      }
+    }
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------- The song played in the introduction -----------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void introSong() {
   // iterate over the notes of the melody.
